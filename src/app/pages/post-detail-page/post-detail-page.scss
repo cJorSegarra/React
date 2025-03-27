@@ -1,11 +1,25 @@
-.post-item {
+.post-detail {
     border: 1px solid #ddd;
     padding: 16px;
     margin-bottom: 16px;
     border-radius: 8px;
     background-color: #f9f9f9;
 
-    h3 {
+    .back-button {
+        margin-bottom: 16px;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        background-color: #007bff;
+        color: #fff;
+
+        &:hover {
+            opacity: 0.9;
+        }
+    }
+
+    h1 {
         margin: 0 0 8px;
         color: #333;
     }
@@ -48,39 +62,6 @@
                 font-size: 0.8em;
                 color: #777;
             }
-        }
-    }
-
-    a {
-        display: inline-block;
-        margin-top: 16px;
-        color: #007bff;
-        text-decoration: none;
-
-        &:hover {
-            text-decoration: underline;
-        }
-    }
-
-    button {
-        margin-right: 8px;
-        padding: 8px 16px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-
-        &:first-of-type {
-            background-color: #007bff;
-            color: #fff;
-        }
-
-        &:last-of-type {
-            background-color: #dc3545;
-            color: #fff;
-        }
-
-        &:hover {
-            opacity: 0.9;
         }
     }
 }
