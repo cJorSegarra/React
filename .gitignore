@@ -21,6 +21,7 @@ cypress-visual-screenshots/comparison/
 cypress-visual-screenshots/diff/
 Dockerfile.local
 .npmrc
+eslint.config.js
 
 # Editor directories and files
 .vscode/*

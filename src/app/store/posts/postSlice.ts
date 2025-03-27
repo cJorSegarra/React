@@ -1,6 +1,6 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Post } from "../../types/post.type";
-import { postService } from "../../api/post-service";
+import { postService } from "../../api/postService";
 
 export const fetchPosts = createAsyncThunk("posts/fetchAll", async () => {
     const response = await postService.getPosts();
@@ -22,7 +22,24 @@ const initialState: PostsState = {
 const postsSlice = createSlice({
     name: "posts",
     initialState,
-    reducers: {},
+    reducers: {
+        updatePostLocally: (state, action: PayloadAction<Post>) => {
+            const index = state.posts.findIndex(
+                (post) => post.id === action.payload.id
+            );
+            if (index !== -1) {
+                state.posts[index] = action.payload;
+            }
+        },
+        deletePostLocally: (state, action: PayloadAction<number>) => {
+            state.posts = state.posts.filter(
+                (post) => post.id !== action.payload
+            );
+        },
+        addPostLocally: (state, action: PayloadAction<Post>) => {
+            state.posts.push(action.payload);
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(fetchPosts.pending, (state) => {
@@ -38,5 +55,8 @@ const postsSlice = createSlice({
             });
     },
 });
+
+export const { updatePostLocally, deletePostLocally, addPostLocally } =
+    postsSlice.actions;
 
 export default postsSlice.reducer;
