@@ -1,12 +1,11 @@
-import Header from "./app/components/header/header";
+import Layout from "./app/pages/layout/layout";
 import AppRoutes from "./app/routes/app-routes";
 
 const App = () => {
     return (
-        <div>
-            <Header />
+        <Layout>
             <AppRoutes />
-        </div>
+        </Layout>
     );
 };
 
