@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { Post } from "../../types/post.type";
-import "./edit-post-form.scss";
+import "./create-post-form.scss";
 
 interface Props {
-    post: Post;
     onSave: (post: Post) => void;
     onCancel: () => void;
 }
 
-const EditPostForm = ({ post, onSave, onCancel }: Props) => {
-    const [title, setTitle] = useState(post.title);
-    const [body, setBody] = useState(post.body);
+const CreatePostForm = ({ onSave, onCancel }: Props) => {
+    const [title, setTitle] = useState("");
+    const [body, setBody] = useState("");
+    const [userId, setUserId] = useState(1);
     const [error, setError] = useState("");
     const EMPTY_ERROR = "Title and Body cannot be empty";
 
@@ -20,11 +20,18 @@ const EditPostForm = ({ post, onSave, onCancel }: Props) => {
             setError(EMPTY_ERROR);
             return;
         }
-        onSave({ ...post, title, body });
+        const newPost: Post = {
+            //This is temporal till I connect my api
+            id: Date.now(),
+            title,
+            body,
+            userId,
+        };
+        onSave(newPost);
     };
 
     return (
-        <div className="edit-post-form">
+        <div className="create-post-form">
             <form onSubmit={handleSubmit}>
                 <label>
                     Title:
@@ -43,11 +50,11 @@ const EditPostForm = ({ post, onSave, onCancel }: Props) => {
                 </label>
                 <label>
                     User ID:
-                    <input type="text" value={post.userId} readOnly />
-                </label>
-                <label>
-                    Post ID:
-                    <input type="text" value={post.id} readOnly />
+                    <input
+                        type="number"
+                        value={userId}
+                        onChange={(e) => setUserId(Number(e.target.value))}
+                    />
                 </label>
                 {error && <div className="error">{error}</div>}
                 <button type="submit">Save</button>
@@ -59,4 +66,4 @@ const EditPostForm = ({ post, onSave, onCancel }: Props) => {
     );
 };
 
-export default EditPostForm;
+export default CreatePostForm;
