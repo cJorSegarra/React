@@ -9,18 +9,17 @@ interface Props {
 }
 
 const EditPostForm = ({ post, onSave, onCancel }: Props) => {
-    const [title, setTitle] = useState(post.title);
-    const [body, setBody] = useState(post.body);
+    const [form, setForm] = useState({ title: post.title, body: post.body });
     const [error, setError] = useState("");
     const EMPTY_ERROR = "Title and Body cannot be empty";
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        if (!title || !body) {
+        if (!form.title || !form.body) {
             setError(EMPTY_ERROR);
             return;
         }
-        onSave({ ...post, title, body });
+        onSave({ ...post, title: form.title, body: form.body });
     };
 
     return (
@@ -30,15 +29,19 @@ const EditPostForm = ({ post, onSave, onCancel }: Props) => {
                     Title:
                     <input
                         type="text"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
+                        value={form.title}
+                        onChange={(e) =>
+                            setForm({ ...form, title: e.target.value })
+                        }
                     />
                 </label>
                 <label>
                     Body:
                     <textarea
-                        value={body}
-                        onChange={(e) => setBody(e.target.value)}
+                        value={form.body}
+                        onChange={(e) =>
+                            setForm({ ...form, body: e.target.value })
+                        }
                     />
                 </label>
                 <label>

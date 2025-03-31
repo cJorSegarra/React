@@ -7,25 +7,24 @@ interface Props {
     onCancel: () => void;
 }
 
+const EMPTY_POST = { title: "", body: "", userId: 1 };
+
 const CreatePostForm = ({ onSave, onCancel }: Props) => {
-    const [title, setTitle] = useState("");
-    const [body, setBody] = useState("");
-    const [userId, setUserId] = useState(1);
+    const [post, setPost] = useState(EMPTY_POST);
     const [error, setError] = useState("");
     const EMPTY_ERROR = "Title and Body cannot be empty";
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        if (!title || !body) {
+        if (!post.title || !post.body) {
             setError(EMPTY_ERROR);
             return;
         }
         const newPost: Post = {
-            //This is temporal till I connect my api
             id: Date.now(),
-            title,
-            body,
-            userId,
+            title: post.title,
+            body: post.body,
+            userId: post.userId,
         };
         onSave(newPost);
     };
@@ -37,23 +36,29 @@ const CreatePostForm = ({ onSave, onCancel }: Props) => {
                     Title:
                     <input
                         type="text"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
+                        value={post.title}
+                        onChange={(e) =>
+                            setPost({ ...post, title: e.target.value })
+                        }
                     />
                 </label>
                 <label>
                     Body:
                     <textarea
-                        value={body}
-                        onChange={(e) => setBody(e.target.value)}
+                        value={post.body}
+                        onChange={(e) =>
+                            setPost({ ...post, body: e.target.value })
+                        }
                     />
                 </label>
                 <label>
                     User ID:
                     <input
                         type="number"
-                        value={userId}
-                        onChange={(e) => setUserId(Number(e.target.value))}
+                        value={post.userId}
+                        onChange={(e) =>
+                            setPost({ ...post, userId: Number(e.target.value) })
+                        }
                     />
                 </label>
                 {error && <div className="error">{error}</div>}
