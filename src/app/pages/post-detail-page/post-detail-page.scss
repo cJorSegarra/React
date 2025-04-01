@@ -1,0 +1,53 @@
+.post-detail {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    width: 100%;
+    margin: 2rem auto;
+    position: relative;
+
+    .back-button {
+        background-color: transparent;
+        border: none;
+        color: #007bff;
+        font-size: 1rem;
+        cursor: pointer;
+        margin-bottom: 1rem;
+        transition: color 0.2s;
+
+        &:hover {
+            color: #0056b3;
+        }
+    }
+
+    h1 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        text-align: center;
+        color: #333;
+    }
+
+    p {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+        color: #555;
+    }
+
+    .post-meta {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.9rem;
+        color: #777;
+        border-top: 1px solid #eee;
+        padding-top: 0.5rem;
+
+        span {
+            &:first-child {
+                margin-right: 1rem;
+            }
+        }
+    }
+}

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Post } from "../../types/post.type";
 import "./post-item.scss";
 
@@ -10,7 +11,10 @@ interface Props {
 const PostItem = ({ post, onEdit, onDelete }: Props) => {
     return (
         <div className="post-item">
-            <h3>{post.title}</h3>
+            {}
+            <Link to={`/posts/${post.id}`}>
+                <h3>{post.title}</h3>
+            </Link>
             <p>{post.body}</p>
             <div className="post-meta">
                 <span>User ID: {post.userId}</span>
