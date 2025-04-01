@@ -35,7 +35,6 @@ const PostsPage = () => {
             post.title.toLowerCase().includes(searchTerm.toLowerCase())
         );
         setFilteredPosts(filtered);
-        setCurrentPage(1);
     }, [searchTerm, posts]);
 
     const indexOfLastPost = currentPage * postsPerPage;
@@ -84,7 +83,11 @@ const PostsPage = () => {
     return (
         <div className="page-container">
             <h1>Posts</h1>
-            <button onClick={() => setCreatingPost(true)}>Create Post</button>
+            <div className="create-post-container">
+                <button onClick={() => setCreatingPost(true)}>
+                    Create Post
+                </button>
+            </div>
             <SearchFilter searchTerm={searchTerm} handleSearch={handleSearch} />
             {status === "loading" && <div>Loading...</div>}
             {status === "failed" && <div>Error: {error}</div>}
