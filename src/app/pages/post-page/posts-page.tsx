@@ -35,6 +35,7 @@ const PostsPage = () => {
             post.title.toLowerCase().includes(searchTerm.toLowerCase())
         );
         setFilteredPosts(filtered);
+        setCurrentPage(1);
     }, [searchTerm, posts]);
 
     const indexOfLastPost = currentPage * postsPerPage;
@@ -59,6 +60,10 @@ const PostsPage = () => {
     const handleDelete = (postId: number) => {
         if (window.confirm("Are you sure you want to delete this post?")) {
             dispatch(deletePostLocally(postId));
+
+            if (currentPosts.length === 1 && currentPage > 1) {
+                setCurrentPage(currentPage - 1);
+            }
         }
     };
 
@@ -70,6 +75,11 @@ const PostsPage = () => {
     const handleSaveCreate = (post: Post) => {
         dispatch(addPostLocally(post));
         setCreatingPost(false);
+
+        setTimeout(() => {
+            const newTotalPages = Math.ceil((posts.length + 1) / postsPerPage);
+            setCurrentPage(newTotalPages);
+        }, 0);
     };
 
     const handleCancelEdit = () => {
