@@ -21,6 +21,7 @@ const PostsPage = () => {
 
     const [editingPost, setEditingPost] = useState<Post | null>(null);
     const [creatingPost, setCreatingPost] = useState(false);
+    const [postCreated, setPostCreated] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const postsPerPage = 10;
     const [searchTerm, setSearchTerm] = useState("");
@@ -33,12 +34,42 @@ const PostsPage = () => {
             );
             setFilteredPosts(filtered);
         }
-    }, [searchTerm, posts]);
+    }, [posts, searchTerm]);
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [searchTerm]);
+
+    useEffect(() => {
+        if (postCreated) {
+            if (filteredPosts) {
+                const totalPages = Math.max(
+                    Math.ceil(filteredPosts.length / postsPerPage),
+                    1
+                );
+                setCurrentPage(totalPages);
+            }
+            setPostCreated(false);
+        }
+    }, [postCreated, filteredPosts, postsPerPage]);
+
+    useEffect(() => {
+        const totalPages = Math.max(
+            Math.ceil(filteredPosts.length / postsPerPage),
+            1
+        );
+        if (currentPage > totalPages) {
+            setCurrentPage(totalPages);
+        }
+    }, [filteredPosts, currentPage, postsPerPage]);
 
     const indexOfLastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
     const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
-    const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+    const totalPages = Math.max(
+        Math.ceil(filteredPosts.length / postsPerPage),
+        1
+    );
 
     const paginate = (pageNumber: number) => {
         if (pageNumber >= 1 && pageNumber <= totalPages) {
@@ -55,8 +86,12 @@ const PostsPage = () => {
     };
 
     const handleDelete = async (postId: number) => {
-        if (window.confirm("Are you sure you want to delete this post?")) {
+        if (window.confirm("¿Estás seguro de que deseas borrar este post?")) {
             await deletePost(postId);
+
+            if (currentPosts.length === 1 && currentPage > 1) {
+                setCurrentPage(currentPage - 1);
+            }
             refetch();
         }
     };
@@ -70,6 +105,7 @@ const PostsPage = () => {
     const handleSaveCreate = async (post: NewPost) => {
         await createPost(post);
         setCreatingPost(false);
+        setPostCreated(true);
         refetch();
     };
 
@@ -86,12 +122,14 @@ const PostsPage = () => {
             <h1>Posts</h1>
             <div className="create-post-container">
                 <button onClick={() => setCreatingPost(true)}>
-                    Create Post
+                    Crear Post
                 </button>
             </div>
             <SearchFilter searchTerm={searchTerm} handleSearch={handleSearch} />
+
             {isLoading && <div>Loading...</div>}
             {error && <div>Error: {error.toString()}</div>}
+
             {posts && (
                 <div>
                     {currentPosts.map((post) => (
