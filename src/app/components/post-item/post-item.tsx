@@ -9,8 +9,6 @@ interface Props {
 }
 
 const PostItem = ({ post, onEdit, onDelete }: Props) => {
-    const commentsToShow = post.comments?.slice(0, 2) || [];
-
     return (
         <div className="post-item">
             <Link to={`/posts/${post.id}`}>
@@ -20,18 +18,6 @@ const PostItem = ({ post, onEdit, onDelete }: Props) => {
             <div className="post-meta">
                 <span>User ID: {post.userId}</span>
                 <span>Post ID: {post.id}</span>
-            </div>
-            <div className="comments">
-                {commentsToShow.length > 0 ? (
-                    commentsToShow.map((comment) => (
-                        <div key={comment.id} className="comment">
-                            <p>{comment.body}</p>
-                            <span>Comment by User ID: {comment.userId}</span>
-                        </div>
-                    ))
-                ) : (
-                    <p>No comments available</p>
-                )}
             </div>
             <button onClick={() => onEdit(post)}>Edit</button>
             <button onClick={() => onDelete(post.id)}>Delete</button>

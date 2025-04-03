@@ -1,5 +1,16 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useGetPostByIdQuery } from "../../api/postApiSlice";
+import {
+    useUpdateCommentMutation,
+    useDeleteCommentMutation,
+    useCreateCommentMutation,
+} from "../../api/commentApiSlice";
+import { Comment as CommentType, NewComment } from "../../types/comment.type";
+import { useState } from "react";
+import CommentItem from "../../components/comment-item/comment-item";
+import EditCommentForm from "../../components/edit-comment-form/edit-comment-form";
+import CreateCommentForm from "../../components/create-comment-form/create-comment-form";
+
 import "./post-detail-page.scss";
 
 const PostDetailPage = () => {
@@ -10,7 +21,40 @@ const PostDetailPage = () => {
         data: post,
         error,
         isLoading,
+        refetch,
     } = useGetPostByIdQuery(Number(postId));
+
+    const [updateComment] = useUpdateCommentMutation();
+    const [deleteComment] = useDeleteCommentMutation();
+    const [createComment] = useCreateCommentMutation();
+
+    const [editingComment, setEditingComment] = useState<CommentType | null>(
+        null
+    );
+    const [isAddingComment, setIsAddingComment] = useState<boolean>(false);
+
+    const handleEditComment = (comment: CommentType) => {
+        setEditingComment(comment);
+    };
+
+    const handleDeleteComment = async (commentId: number) => {
+        if (window.confirm("Are you sure you want to delete this comment?")) {
+            await deleteComment(commentId);
+            refetch();
+        }
+    };
+
+    const handleSaveComment = async (comment: CommentType) => {
+        await updateComment({ id: comment.id, comment });
+        setEditingComment(null);
+        refetch();
+    };
+
+    const handleSaveNewComment = async (newComment: NewComment) => {
+        await createComment(newComment);
+        setIsAddingComment(false);
+        refetch();
+    };
 
     if (isLoading) {
         return <div>Loading...</div>;
@@ -35,18 +79,48 @@ const PostDetailPage = () => {
                 <span>User ID: {post.userId}</span>
                 <span>Post ID: {post.id}</span>
             </div>
+
+            {}
+            {!isAddingComment && (
+                <button
+                    className="add-comment-button"
+                    onClick={() => setIsAddingComment(true)}
+                >
+                    Comment
+                </button>
+            )}
+
+            {}
+            {isAddingComment && (
+                <CreateCommentForm
+                    postId={post.id}
+                    onSave={handleSaveNewComment}
+                    onCancel={() => setIsAddingComment(false)}
+                />
+            )}
+
             <div className="comments">
                 {post.comments && post.comments.length > 0 ? (
                     post.comments.map((comment) => (
-                        <div key={comment.id} className="comment">
-                            <p>{comment.body}</p>
-                            <span>Comment by User ID: {comment.userId}</span>
-                        </div>
+                        <CommentItem
+                            key={comment.id}
+                            comment={comment}
+                            onEdit={handleEditComment}
+                            onDelete={handleDeleteComment}
+                        />
                     ))
                 ) : (
                     <p>No comments available</p>
                 )}
             </div>
+
+            {editingComment && (
+                <EditCommentForm
+                    comment={editingComment}
+                    onSave={handleSaveComment}
+                    onCancel={() => setEditingComment(null)}
+                />
+            )}
         </div>
     );
 };

@@ -122,7 +122,7 @@ const PostsPage = () => {
             <h1>Posts</h1>
             <div className="create-post-container">
                 <button onClick={() => setCreatingPost(true)}>
-                    Crear Post
+                    Create Post
                 </button>
             </div>
             <SearchFilter searchTerm={searchTerm} handleSearch={handleSearch} />

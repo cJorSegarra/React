@@ -4,3 +4,5 @@ export interface Comment {
     userId: number;
     postId: number;
 }
+
+export type NewComment = Omit<Comment, "id">;
