@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../hooks/index";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import {
     fetchPosts,
     updatePostLocally,
@@ -19,6 +19,7 @@ const PostsPage = () => {
     const { posts, status, error } = useAppSelector((state) => state.posts);
     const [editingPost, setEditingPost] = useState<Post | null>(null);
     const [creatingPost, setCreatingPost] = useState(false);
+    const [postCreated, setPostCreated] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const postsPerPage = 10;
     const [searchTerm, setSearchTerm] = useState("");
@@ -35,13 +36,43 @@ const PostsPage = () => {
             post.title.toLowerCase().includes(searchTerm.toLowerCase())
         );
         setFilteredPosts(filtered);
+    }, [posts, searchTerm]);
+
+    useEffect(() => {
         setCurrentPage(1);
-    }, [searchTerm, posts]);
+    }, [searchTerm]);
+
+    useEffect(() => {
+        if (postCreated) {
+            const filtered = posts.filter((post) =>
+                post.title.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+            const totalPages = Math.max(
+                Math.ceil(filtered.length / postsPerPage),
+                1
+            );
+            setCurrentPage(totalPages);
+            setPostCreated(false);
+        }
+    }, [posts, postCreated, searchTerm, postsPerPage]);
+
+    useEffect(() => {
+        const totalPages = Math.max(
+            Math.ceil(filteredPosts.length / postsPerPage),
+            1
+        );
+        if (currentPage > totalPages) {
+            setCurrentPage(totalPages);
+        }
+    }, [filteredPosts, currentPage, postsPerPage]);
 
     const indexOfLastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
     const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
-    const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+    const totalPages = Math.max(
+        Math.ceil(filteredPosts.length / postsPerPage),
+        1
+    );
 
     const paginate = (pageNumber: number) => {
         if (pageNumber >= 1 && pageNumber <= totalPages) {
@@ -58,8 +89,11 @@ const PostsPage = () => {
     };
 
     const handleDelete = (postId: number) => {
-        if (window.confirm("Are you sure you want to delete this post?")) {
+        if (window.confirm("¿Estás seguro de que deseas borrar este post?")) {
             dispatch(deletePostLocally(postId));
+            if (currentPosts.length === 1 && currentPage > 1) {
+                setCurrentPage(currentPage - 1);
+            }
         }
     };
 
@@ -71,6 +105,7 @@ const PostsPage = () => {
     const handleSaveCreate = (post: Post) => {
         dispatch(addPostLocally(post));
         setCreatingPost(false);
+        setPostCreated(true);
     };
 
     const handleCancelEdit = () => {
@@ -84,9 +119,13 @@ const PostsPage = () => {
     return (
         <div className="page-container">
             <h1>Posts</h1>
-            <button onClick={() => setCreatingPost(true)}>Create Post</button>
+            <div className="create-post-container">
+                <button onClick={() => setCreatingPost(true)}>
+                    Crear Post
+                </button>
+            </div>
             <SearchFilter searchTerm={searchTerm} handleSearch={handleSearch} />
-            {status === "loading" && <div>Loading...</div>}
+            {status === "loading" && <div>Cargando...</div>}
             {status === "failed" && <div>Error: {error}</div>}
             {status === "succeeded" && (
                 <div>
