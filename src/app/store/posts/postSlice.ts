@@ -1,11 +1,5 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Post } from "../../types/post.type";
-import { postService } from "../../api/postService";
-
-export const fetchPosts = createAsyncThunk("posts/fetchAll", async () => {
-    const response = await postService.getPosts();
-    return response;
-});
 
 interface PostsState {
     posts: Post[];
@@ -39,20 +33,6 @@ const postsSlice = createSlice({
         addPostLocally: (state, action: PayloadAction<Post>) => {
             state.posts.push(action.payload);
         },
-    },
-    extraReducers: (builder) => {
-        builder
-            .addCase(fetchPosts.pending, (state) => {
-                state.status = "loading";
-            })
-            .addCase(fetchPosts.fulfilled, (state, action) => {
-                state.status = "succeeded";
-                state.posts = action.payload;
-            })
-            .addCase(fetchPosts.rejected, (state, action) => {
-                state.status = "failed";
-                state.error = action.error.message || "Failed to fetch posts";
-            });
     },
 });
 

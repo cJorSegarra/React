@@ -11,7 +11,6 @@ interface Props {
 const PostItem = ({ post, onEdit, onDelete }: Props) => {
     return (
         <div className="post-item">
-            {}
             <Link to={`/posts/${post.id}`}>
                 <h3>{post.title}</h3>
             </Link>

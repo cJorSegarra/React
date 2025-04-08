@@ -1,41 +1,42 @@
-import { useState } from "react";
-import { Post } from "../../types/post.type";
-import "./edit-post-form.scss";
+import React, { useState } from "react";
+import { NewComment } from "../../types/comment.type";
+import "./create-comment-form.scss";
 
-interface Props {
-    post: Post;
-    onSave: (post: Post) => void;
+interface CreateCommentFormProps {
+    postId: number;
+    onSave: (comment: NewComment) => void;
     onCancel: () => void;
 }
 
-const EditPostForm = ({ post, onSave, onCancel }: Props) => {
-    const [title, setTitle] = useState(post.title);
-    const [body, setBody] = useState(post.body);
+const CreateCommentForm = ({
+    postId,
+    onSave,
+    onCancel,
+}: CreateCommentFormProps) => {
+    const [body, setBody] = useState("");
+    const [userId, setUserId] = useState(1);
     const [error, setError] = useState("");
     const EMPTY_ERROR = "Title and Body cannot be empty";
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        if (!title || !body) {
+        if (!body) {
             setError(EMPTY_ERROR);
             return;
         }
-        onSave({ ...post, title, body });
+        const newComment: NewComment = {
+            body,
+            userId,
+            postId,
+        };
+        onSave(newComment);
     };
 
     return (
-        <div className="edit-post-form">
+        <div className="create-comment-form">
             <form onSubmit={handleSubmit}>
                 <label>
-                    Title:
-                    <input
-                        type="text"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                    />
-                </label>
-                <label>
-                    Body:
+                    Comment:
                     <textarea
                         value={body}
                         onChange={(e) => setBody(e.target.value)}
@@ -43,11 +44,15 @@ const EditPostForm = ({ post, onSave, onCancel }: Props) => {
                 </label>
                 <label>
                     User ID:
-                    <input type="text" value={post.userId} readOnly />
+                    <input
+                        type="number"
+                        value={userId}
+                        onChange={(e) => setUserId(Number(e.target.value))}
+                    />
                 </label>
                 <label>
                     Post ID:
-                    <input type="text" value={post.id} readOnly />
+                    <input type="number" value={postId} readOnly disabled />
                 </label>
                 {error && <div className="error">{error}</div>}
                 <button type="submit">Save</button>
@@ -59,4 +64,4 @@ const EditPostForm = ({ post, onSave, onCancel }: Props) => {
     );
 };
 
-export default EditPostForm;
+export default CreateCommentForm;

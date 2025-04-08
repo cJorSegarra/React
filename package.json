@@ -49,5 +49,6 @@
         "*.{css,json,html,md}": [
             "pnpm format"
         ]
-    }
+    },
+    "proxy": "http://localhost:20001"
 }

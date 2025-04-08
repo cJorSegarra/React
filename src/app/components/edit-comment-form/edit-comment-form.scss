@@ -1,0 +1,69 @@
+.edit-comment-form {
+    border: 1px solid #ddd;
+    padding: 16px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    margin-bottom: 16px;
+
+    form {
+        display: flex;
+        flex-direction: column;
+
+        label {
+            margin-bottom: 12px;
+            font-weight: bold;
+            color: #333;
+
+            textarea {
+                margin-top: 4px;
+                width: 100%;
+                min-height: 80px;
+                padding: 8px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                font-family: inherit;
+                font-size: 1em;
+                resize: vertical;
+
+                &:focus {
+                    outline: none;
+                    border-color: #007bff;
+                }
+            }
+        }
+
+        > div {
+            margin-bottom: 12px;
+
+            strong {
+                margin-right: 4px;
+            }
+        }
+
+        .error {
+            color: red;
+            font-size: 0.9em;
+            margin-bottom: 12px;
+        }
+
+        button {
+            padding: 5px 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-right: 8px;
+            background-color: #4caf50;
+            color: #fff;
+            transition: opacity 0.2s ease-in-out;
+
+            &:hover {
+                opacity: 0.9;
+            }
+
+            &:last-child {
+                background-color: #f44336;
+            }
+        }
+    }
+}

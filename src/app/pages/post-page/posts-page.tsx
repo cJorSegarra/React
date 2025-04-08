@@ -1,12 +1,11 @@
-import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../hooks";
+import React, { useState, useEffect } from "react";
 import {
-    fetchPosts,
-    updatePostLocally,
-    deletePostLocally,
-    addPostLocally,
-} from "../../store/posts/postSlice";
-import { Post } from "../../types/post.type";
+    useGetPostsQuery,
+    useCreatePostMutation,
+    useUpdatePostMutation,
+    useDeletePostMutation,
+} from "../../api/postApiSlice";
+import { Post, NewPost } from "../../types/post.type";
 import PostItem from "../../components/post-item/post-item";
 import EditPostForm from "../../components/edit-post-form/edit-post-form";
 import CreatePostForm from "../../components/create-post-form/create-post-form";
@@ -15,8 +14,11 @@ import Pagination from "../../components/pagination-component/pagination-compone
 import "./posts-page.scss";
 
 const PostsPage = () => {
-    const dispatch = useAppDispatch();
-    const { posts, status, error } = useAppSelector((state) => state.posts);
+    const { data: posts, error, isLoading, refetch } = useGetPostsQuery();
+    const [createPost] = useCreatePostMutation();
+    const [updatePost] = useUpdatePostMutation();
+    const [deletePost] = useDeletePostMutation();
+
     const [editingPost, setEditingPost] = useState<Post | null>(null);
     const [creatingPost, setCreatingPost] = useState(false);
     const [postCreated, setPostCreated] = useState(false);
@@ -26,16 +28,12 @@ const PostsPage = () => {
     const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
 
     useEffect(() => {
-        if (status === "idle") {
-            dispatch(fetchPosts());
+        if (posts) {
+            const filtered = posts.filter((post) =>
+                post.title.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+            setFilteredPosts(filtered);
         }
-    }, [status, dispatch]);
-
-    useEffect(() => {
-        const filtered = posts.filter((post) =>
-            post.title.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-        setFilteredPosts(filtered);
     }, [posts, searchTerm]);
 
     useEffect(() => {
@@ -44,17 +42,16 @@ const PostsPage = () => {
 
     useEffect(() => {
         if (postCreated) {
-            const filtered = posts.filter((post) =>
-                post.title.toLowerCase().includes(searchTerm.toLowerCase())
-            );
-            const totalPages = Math.max(
-                Math.ceil(filtered.length / postsPerPage),
-                1
-            );
-            setCurrentPage(totalPages);
+            if (filteredPosts) {
+                const totalPages = Math.max(
+                    Math.ceil(filteredPosts.length / postsPerPage),
+                    1
+                );
+                setCurrentPage(totalPages);
+            }
             setPostCreated(false);
         }
-    }, [posts, postCreated, searchTerm, postsPerPage]);
+    }, [postCreated, filteredPosts, postsPerPage]);
 
     useEffect(() => {
         const totalPages = Math.max(
@@ -88,24 +85,28 @@ const PostsPage = () => {
         setEditingPost(post);
     };
 
-    const handleDelete = (postId: number) => {
+    const handleDelete = async (postId: number) => {
         if (window.confirm("¿Estás seguro de que deseas borrar este post?")) {
-            dispatch(deletePostLocally(postId));
+            await deletePost(postId);
+
             if (currentPosts.length === 1 && currentPage > 1) {
                 setCurrentPage(currentPage - 1);
             }
+            refetch();
         }
     };
 
-    const handleSaveEdit = (post: Post) => {
-        dispatch(updatePostLocally(post));
+    const handleSaveEdit = async (post: Post) => {
+        await updatePost({ id: post.id, post });
         setEditingPost(null);
+        refetch();
     };
 
-    const handleSaveCreate = (post: Post) => {
-        dispatch(addPostLocally(post));
+    const handleSaveCreate = async (post: NewPost) => {
+        await createPost(post);
         setCreatingPost(false);
         setPostCreated(true);
+        refetch();
     };
 
     const handleCancelEdit = () => {
@@ -121,13 +122,15 @@ const PostsPage = () => {
             <h1>Posts</h1>
             <div className="create-post-container">
                 <button onClick={() => setCreatingPost(true)}>
-                    Crear Post
+                    Create Post
                 </button>
             </div>
             <SearchFilter searchTerm={searchTerm} handleSearch={handleSearch} />
-            {status === "loading" && <div>Cargando...</div>}
-            {status === "failed" && <div>Error: {error}</div>}
-            {status === "succeeded" && (
+
+            {isLoading && <div>Loading...</div>}
+            {error && <div>Error: {error.toString()}</div>}
+
+            {posts && (
                 <div>
                     {currentPosts.map((post) => (
                         <PostItem
