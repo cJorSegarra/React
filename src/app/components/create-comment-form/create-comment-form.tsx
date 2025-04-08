@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 import { NewComment } from "../../types/comment.type";
 import "./create-comment-form.scss";
 
@@ -14,9 +16,10 @@ const CreateCommentForm = ({
     onCancel,
 }: CreateCommentFormProps) => {
     const [body, setBody] = useState("");
-    const [userId, setUserId] = useState(1);
     const [error, setError] = useState("");
-    const EMPTY_ERROR = "Title and Body cannot be empty";
+    const EMPTY_ERROR = "Comment cannot be empty";
+
+    const userId = useSelector((state: RootState) => state.auth.id);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -26,7 +29,7 @@ const CreateCommentForm = ({
         }
         const newComment: NewComment = {
             body,
-            userId,
+            userId: userId!,
             postId,
         };
         onSave(newComment);
@@ -40,14 +43,6 @@ const CreateCommentForm = ({
                     <textarea
                         value={body}
                         onChange={(e) => setBody(e.target.value)}
-                    />
-                </label>
-                <label>
-                    User ID:
-                    <input
-                        type="number"
-                        value={userId}
-                        onChange={(e) => setUserId(Number(e.target.value))}
                     />
                 </label>
                 <label>

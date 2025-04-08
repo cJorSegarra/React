@@ -4,11 +4,12 @@ import "./post-item.scss";
 
 interface Props {
     post: Post;
+    currentUserId: number | null;
     onEdit: (post: Post) => void;
     onDelete: (postId: number) => void;
 }
 
-const PostItem = ({ post, onEdit, onDelete }: Props) => {
+const PostItem = ({ post, currentUserId, onEdit, onDelete }: Props) => {
     return (
         <div className="post-item">
             <Link to={`/posts/${post.id}`}>
@@ -19,8 +20,12 @@ const PostItem = ({ post, onEdit, onDelete }: Props) => {
                 <span>User ID: {post.userId}</span>
                 <span>Post ID: {post.id}</span>
             </div>
-            <button onClick={() => onEdit(post)}>Edit</button>
-            <button onClick={() => onDelete(post.id)}>Delete</button>
+            {currentUserId === post.userId && (
+                <>
+                    <button onClick={() => onEdit(post)}>Edit</button>
+                    <button onClick={() => onDelete(post.id)}>Delete</button>
+                </>
+            )}
         </div>
     );
 };

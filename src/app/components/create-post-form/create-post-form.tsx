@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 import { NewPost } from "../../types/post.type";
 import "./create-post-form.scss";
 
@@ -10,9 +12,10 @@ interface Props {
 const CreatePostForm = ({ onSave, onCancel }: Props) => {
     const [title, setTitle] = useState("");
     const [body, setBody] = useState("");
-    const [userId, setUserId] = useState(1);
     const [error, setError] = useState("");
     const EMPTY_ERROR = "Title and Body cannot be empty";
+
+    const userId = useSelector((state: RootState) => state.auth.id);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -23,7 +26,7 @@ const CreatePostForm = ({ onSave, onCancel }: Props) => {
         const newPost: NewPost = {
             title,
             body,
-            userId,
+            userId: userId!,
         };
         onSave(newPost);
     };
@@ -44,14 +47,6 @@ const CreatePostForm = ({ onSave, onCancel }: Props) => {
                     <textarea
                         value={body}
                         onChange={(e) => setBody(e.target.value)}
-                    />
-                </label>
-                <label>
-                    User ID:
-                    <input
-                        type="number"
-                        value={userId}
-                        onChange={(e) => setUserId(Number(e.target.value))}
                     />
                 </label>
                 {error && <div className="error">{error}</div>}

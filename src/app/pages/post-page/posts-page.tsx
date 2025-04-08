@@ -11,6 +11,8 @@ import EditPostForm from "../../components/edit-post-form/edit-post-form";
 import CreatePostForm from "../../components/create-post-form/create-post-form";
 import SearchFilter from "../../components/search-filter-component/search-filter-component";
 import Pagination from "../../components/pagination-component/pagination-component";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 import "./posts-page.scss";
 
 const PostsPage = () => {
@@ -26,6 +28,8 @@ const PostsPage = () => {
     const postsPerPage = 10;
     const [searchTerm, setSearchTerm] = useState("");
     const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
+
+    const currentUserId = useSelector((state: RootState) => state.auth.id);
 
     useEffect(() => {
         if (posts) {
@@ -121,9 +125,13 @@ const PostsPage = () => {
         <div className="page-container">
             <h1>Posts</h1>
             <div className="create-post-container">
-                <button onClick={() => setCreatingPost(true)}>
-                    Create Post
-                </button>
+                {currentUserId ? (
+                    <button onClick={() => setCreatingPost(true)}>
+                        Create Post
+                    </button>
+                ) : (
+                    <p>Please log in to create a post.</p>
+                )}
             </div>
             <SearchFilter searchTerm={searchTerm} handleSearch={handleSearch} />
 
@@ -136,6 +144,7 @@ const PostsPage = () => {
                         <PostItem
                             key={post.id}
                             post={post}
+                            currentUserId={currentUserId}
                             onEdit={handleEdit}
                             onDelete={handleDelete}
                         />
@@ -154,7 +163,7 @@ const PostsPage = () => {
                     onCancel={handleCancelEdit}
                 />
             )}
-            {creatingPost && (
+            {creatingPost && currentUserId && (
                 <CreatePostForm
                     onSave={handleSaveCreate}
                     onCancel={handleCancelCreate}
