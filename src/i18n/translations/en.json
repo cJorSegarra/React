@@ -37,5 +37,9 @@
     "empty_error": "Title and Body cannot be empty",
     "empty_comment_error": "Comment cannot be empty",
     "comment_by_user_id": "Comment by User ID",
-    "welcome": "Welcome"
+    "welcome": "Welcome",
+    "charts": "Charts",
+    "quantity_of_posts_and_comments_per_user": "Quantity of Posts and Comments per User",
+    "quantity": "Quantity",
+    "error_loading_data": "Error loading data. Please check your connection or the API."
 }

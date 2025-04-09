@@ -20,6 +20,7 @@ const Breadcrumbs = () => {
 
                     let label = segmento;
                     if (segmento === "posts") label = t("posts");
+                    if (segmento === "charts") label = t("charts");
 
                     return (
                         <li key={to} className="breadcrumb-item">
