@@ -21,6 +21,7 @@
     "post_not_found": "Publicación no encontrada.",
     "no_comments_available": "No hay comentarios disponibles.",
     "confirm_delete_comment": "¿Estás seguro de que deseas borrar este comentario?",
+    "confirm_delete_post": "¿Estás seguro de que deseas borrar esta publicación?",
     "user_id": "ID de Usuario",
     "post_id": "ID de Publicación",
     "page": "Página",

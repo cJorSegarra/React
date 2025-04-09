@@ -1,16 +1,17 @@
+import { useTranslation } from "react-i18next";
+import "./pagination-component.scss";
+
 type PaginationProps = {
     paginate: (pageNumber: number) => void;
     currentPage: number;
     totalPages: number;
 };
 
-import { useTranslation } from "react-i18next";
-
 const Pagination = ({ paginate, currentPage, totalPages }: PaginationProps) => {
     const { t } = useTranslation();
 
     return (
-        <div>
+        <div className="pagination">
             <button
                 onClick={() => paginate(currentPage - 1)}
                 disabled={currentPage === 1}

@@ -1,5 +1,6 @@
 import LoginComponent from "../../components/login-component/login-component";
 import { useTranslation } from "react-i18next";
+import "./login-page.scss";
 
 function LoginPage() {
     const { t } = useTranslation();
