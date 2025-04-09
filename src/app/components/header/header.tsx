@@ -3,8 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { logout } from "../../store/auth/authSlice";
 import "./header.scss";
+import { useTranslation } from "react-i18next";
 
 const Header = () => {
+    const { t } = useTranslation();
     const dispatch = useDispatch();
     const username = useSelector((state: RootState) => state.auth.name);
 
@@ -17,10 +19,10 @@ const Header = () => {
             <nav>
                 <ul>
                     <li>
-                        <Link to="/">Home</Link>
+                        <Link to="/">{t("home")}</Link>
                     </li>
                     <li>
-                        <Link to="/posts">Posts</Link>
+                        <Link to="/posts">{t("posts")}</Link>
                     </li>
                 </ul>
                 {username ? (
@@ -30,14 +32,14 @@ const Header = () => {
                         </li>
                         <li>
                             <button onClick={handleLogout}>
-                                Cerrar sesión
+                                {t("logout")}
                             </button>
                         </li>
                     </ul>
                 ) : (
                     <ul className="user-section">
                         <li>
-                            <Link to="/login">Login</Link>
+                            <Link to="/login">{t("login")}</Link>
                         </li>
                     </ul>
                 )}

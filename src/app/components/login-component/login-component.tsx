@@ -3,31 +3,33 @@ import { useLoginMutation } from "../../api/usersApiSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../store/auth/authSlice";
+import { useTranslation } from "react-i18next";
+import "./login-component.scss";
 
 const Login = () => {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
     const [loginMutation, { isLoading, isError, error }] = useLoginMutation();
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
             const userData = await loginMutation({ name, password }).unwrap();
             dispatch(login({ id: userData.id, name: userData.name }));
             navigate("/posts");
         } catch (err) {
-            console.error("Error en el login:", err);
+            console.error(t("error_login"), err);
         }
     };
 
     return (
         <div>
-            <h2>Login</h2>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label>Nombre:</label>
+                    <label>{t("name")}:</label>
                     <input
                         type="text"
                         value={name}
@@ -36,7 +38,7 @@ const Login = () => {
                     />
                 </div>
                 <div>
-                    <label>Contraseña:</label>
+                    <label>{t("password")}:</label>
                     <input
                         type="password"
                         value={password}
@@ -45,12 +47,12 @@ const Login = () => {
                     />
                 </div>
                 <button type="submit" disabled={isLoading}>
-                    {isLoading ? "Cargando..." : "Iniciar Sesión"}
+                    {isLoading ? t("loading") : t("sign_in")}
                 </button>
             </form>
             {isError && (
                 <p style={{ color: "red" }}>
-                    Error en el login: {error && "Credenciales inválidas"}
+                    {t("error_login")}: {error && t("invalid_credentials")}
                 </p>
             )}
         </div>

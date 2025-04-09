@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Post } from "../../types/post.type";
 import "./post-item.scss";
+import { useTranslation } from "react-i18next";
 
 interface Props {
     post: Post;
@@ -10,6 +11,8 @@ interface Props {
 }
 
 const PostItem = ({ post, currentUserId, onEdit, onDelete }: Props) => {
+    const { t } = useTranslation();
+
     return (
         <div className="post-item">
             <Link to={`/posts/${post.id}`}>
@@ -17,13 +20,19 @@ const PostItem = ({ post, currentUserId, onEdit, onDelete }: Props) => {
             </Link>
             <p>{post.body}</p>
             <div className="post-meta">
-                <span>User ID: {post.userId}</span>
-                <span>Post ID: {post.id}</span>
+                <span>
+                    {t("user_id")}: {post.userId}
+                </span>
+                <span>
+                    {t("post_id")}: {post.id}
+                </span>
             </div>
             {currentUserId === post.userId && (
                 <>
-                    <button onClick={() => onEdit(post)}>Edit</button>
-                    <button onClick={() => onDelete(post.id)}>Delete</button>
+                    <button onClick={() => onEdit(post)}>{t("edit")}</button>
+                    <button onClick={() => onDelete(post.id)}>
+                        {t("delete")}
+                    </button>
                 </>
             )}
         </div>
