@@ -4,6 +4,10 @@
     padding: 1rem;
 
     nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
         ul {
             list-style: none;
             padding: 0;
@@ -19,6 +23,28 @@
 
                     &:hover {
                         text-decoration: underline;
+                    }
+                }
+            }
+
+            .user-section {
+                display: flex;
+                align-items: center;
+
+                span {
+                    margin-right: 1rem;
+                }
+
+                button {
+                    background-color: #0056b3;
+                    color: white;
+                    border: none;
+                    padding: 0.5rem 1rem;
+                    cursor: pointer;
+                    border-radius: 4px;
+
+                    &:hover {
+                        background-color: #004494;
                     }
                 }
             }

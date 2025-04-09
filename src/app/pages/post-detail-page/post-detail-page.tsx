@@ -7,10 +7,11 @@ import {
 } from "../../api/commentApiSlice";
 import { Comment as CommentType, NewComment } from "../../types/comment.type";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 import CommentItem from "../../components/comment-item/comment-item";
 import EditCommentForm from "../../components/edit-comment-form/edit-comment-form";
 import CreateCommentForm from "../../components/create-comment-form/create-comment-form";
-
 import "./post-detail-page.scss";
 
 const PostDetailPage = () => {
@@ -32,6 +33,8 @@ const PostDetailPage = () => {
         null
     );
     const [isAddingComment, setIsAddingComment] = useState<boolean>(false);
+
+    const currentUserId = useSelector((state: RootState) => state.auth.id);
 
     const handleEditComment = (comment: CommentType) => {
         setEditingComment(comment);
@@ -80,18 +83,20 @@ const PostDetailPage = () => {
                 <span>Post ID: {post.id}</span>
             </div>
 
-            {}
-            {!isAddingComment && (
-                <button
-                    className="add-comment-button"
-                    onClick={() => setIsAddingComment(true)}
-                >
-                    Comment
-                </button>
+            {currentUserId ? (
+                !isAddingComment && (
+                    <button
+                        className="add-comment-button"
+                        onClick={() => setIsAddingComment(true)}
+                    >
+                        Comment
+                    </button>
+                )
+            ) : (
+                <p>Please log in to comment.</p>
             )}
 
-            {}
-            {isAddingComment && (
+            {isAddingComment && currentUserId && (
                 <CreateCommentForm
                     postId={post.id}
                     onSave={handleSaveNewComment}
@@ -105,6 +110,7 @@ const PostDetailPage = () => {
                         <CommentItem
                             key={comment.id}
                             comment={comment}
+                            currentUserId={currentUserId}
                             onEdit={handleEditComment}
                             onDelete={handleDeleteComment}
                         />
