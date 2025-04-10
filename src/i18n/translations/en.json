@@ -21,6 +21,7 @@
     "post_not_found": "Post not found.",
     "no_comments_available": "No comments available.",
     "confirm_delete_comment": "Are you sure you want to delete this comment?",
+    "confirm_delete_post": "Are you sure you want to delete this post?",
     "user_id": "User ID",
     "post_id": "Post ID",
     "page": "Page",
@@ -41,5 +42,7 @@
     "charts": "Charts",
     "quantity_of_posts_and_comments_per_user": "Quantity of Posts and Comments per User",
     "quantity": "Quantity",
-    "error_loading_data": "Error loading data. Please check your connection or the API."
+    "error_loading_data": "Error loading data. Please check your connection or the API.",
+    "light_mode": "Light mode",
+    "dark_mode": "Dark mode"
 }
