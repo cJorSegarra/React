@@ -24,6 +24,9 @@ const Header = () => {
                     <li>
                         <Link to="/posts">{t("posts")}</Link>
                     </li>
+                    <li>
+                        <Link to="/charts">{t("charts")}</Link>
+                    </li>
                 </ul>
                 {username ? (
                     <ul className="user-section">
