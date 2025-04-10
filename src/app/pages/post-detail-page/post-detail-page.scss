@@ -1,9 +1,9 @@
 .post-detail {
-    border: 1px solid #ddd;
+    border: 1px solid var(--post-border-color, #ddd);
     padding: 16px;
     margin-bottom: 16px;
     border-radius: 8px;
-    background-color: #f9f9f9;
+    background-color: var(--post-background-color, #f9f9f9);
 
     .back-button {
         margin-bottom: 16px;
@@ -11,8 +11,8 @@
         border: none;
         border-radius: 4px;
         cursor: pointer;
-        background-color: #007bff;
-        color: #fff;
+        background-color: var(--post-button-primary-bg-color, #007bff);
+        color: var(--post-button-primary-text-color, #fff);
 
         &:hover {
             opacity: 0.9;
@@ -21,12 +21,12 @@
 
     h1 {
         margin: 0 0 8px;
-        color: #333;
+        color: var(--post-heading-color, #333);
     }
 
     p {
         margin: 0 0 16px;
-        color: #666;
+        color: var(--post-text-color, #666);
     }
 
     .post-meta {
@@ -34,7 +34,7 @@
         justify-content: space-between;
         margin-bottom: 16px;
         font-size: 0.9em;
-        color: #999;
+        color: var(--post-meta-color, #999);
 
         span {
             margin-right: 8px;
@@ -44,23 +44,23 @@
     .comments {
         margin-top: 16px;
         padding-top: 16px;
-        border-top: 1px solid #eee;
+        border-top: 1px solid var(--post-comments-border-color, #eee);
 
         .comment {
             margin-bottom: 8px;
             padding: 8px;
-            border: 1px solid #ddd;
+            border: 1px solid var(--comment-border-color, #ddd);
             border-radius: 4px;
-            background-color: #fff;
+            background-color: var(--comment-background-color, #fff);
 
             p {
                 margin: 0 0 4px;
-                color: #444;
+                color: var(--comment-text-color, #444);
             }
 
             span {
                 font-size: 0.8em;
-                color: #777;
+                color: var(--comment-meta-color, #777);
             }
         }
     }

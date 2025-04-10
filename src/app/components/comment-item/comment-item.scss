@@ -1,18 +1,18 @@
 .comment-item {
     margin-bottom: 8px;
     padding: 8px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--comment-border-color, #ddd);
     border-radius: 4px;
-    background-color: #fff;
+    background-color: var(--comment-background-color, #fff);
 
     p {
         margin: 0 0 4px;
-        color: #444;
+        color: var(--comment-text-color, #444);
     }
 
     span {
         font-size: 0.8em;
-        color: #777;
+        color: var(--comment-meta-color, #777);
     }
 
     button {
@@ -23,15 +23,15 @@
         border-radius: 4px;
         cursor: pointer;
         font-size: 0.8em;
-    }
 
-    button:first-of-type {
-        background-color: #4caf50;
-        color: #fff;
-    }
+        &:first-of-type {
+            background-color: var(--comment-button-approve-bg, #4caf50);
+            color: var(--comment-button-approve-color, #fff);
+        }
 
-    button:last-of-type {
-        background-color: #f44336;
-        color: #fff;
+        &:last-of-type {
+            background-color: var(--comment-button-delete-bg, #f44336);
+            color: var(--comment-button-delete-color, #fff);
+        }
     }
 }

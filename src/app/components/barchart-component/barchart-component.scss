@@ -1,0 +1,16 @@
+.highcharts-container {
+    background-color: var(--chart-background-color, #fff);
+    color: var(--chart-text-color, #333);
+}
+
+.highcharts-title {
+    color: var(--chart-title-color, #333);
+}
+
+.highcharts-axis-labels {
+    color: var(--chart-axis-labels-color, #666);
+}
+
+.highcharts-series {
+    fill: var(--chart-series-color, #007bff);
+}

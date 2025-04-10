@@ -1,5 +1,5 @@
-.page-container {
-    padding: 2rem;
+.chart-page {
+    padding: 20px;
     background-color: var(--page-background-color, #f8f9fa);
     min-height: 100vh;
     display: flex;
@@ -7,11 +7,8 @@
     align-items: center;
 
     h1 {
-        margin-bottom: 1.5rem;
-        text-align: center;
-        width: 100%;
+        margin-bottom: 20px;
         color: var(--page-heading-color, #333);
-        font-size: 2rem;
     }
 
     .loading,
@@ -19,9 +16,5 @@
         font-size: 1.2rem;
         color: var(--page-loading-error-color, #007bff);
         margin: 1rem 0;
-    }
-
-    p {
-        color: var(--page-text-color, #666);
     }
 }

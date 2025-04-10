@@ -4,7 +4,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: 70%;
-    background-color: #fff;
+    background-color: var(--form-background-color, #fff);
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -23,7 +23,7 @@
                 width: 100%;
                 padding: 8px;
                 margin-top: 5px;
-                border: 1px solid #ccc;
+                border: 1px solid var(--form-input-border-color, #ccc);
                 border-radius: 4px;
             }
         }
@@ -36,19 +36,19 @@
             cursor: pointer;
 
             &:first-of-type {
-                background-color: #4caf50;
-                color: #fff;
+                background-color: var(--form-button-submit-bg, #4caf50);
+                color: var(--form-button-submit-color, #fff);
                 margin-right: 10px;
             }
 
             &:last-of-type {
-                background-color: #f44336;
-                color: #fff;
+                background-color: var(--form-button-cancel-bg, #f44336);
+                color: var(--form-button-cancel-color, #fff);
             }
         }
 
         .error {
-            color: red;
+            color: var(--form-error-color, red);
             margin-top: 10px;
         }
     }

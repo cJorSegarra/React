@@ -1,6 +1,7 @@
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import { useTranslation } from "react-i18next";
+import "./barchart-component.scss";
 
 interface BarChartProps {
     data: { name: string; posts: number; comments: number }[];

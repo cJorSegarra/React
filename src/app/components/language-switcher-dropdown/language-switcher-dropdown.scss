@@ -8,13 +8,13 @@
     select {
         margin: 0 5px;
         padding: 5px 10px;
-        border: 1px solid #ddd;
+        border: 1px solid var(--language-switcher-border-color, #ddd);
         border-radius: 4px;
-        background-color: #fff;
+        background-color: var(--language-switcher-bg-color, #fff);
         cursor: pointer;
 
         &:hover {
-            background-color: #f0f0f0;
+            background-color: var(--language-switcher-hover-bg, #f0f0f0);
         }
     }
 }

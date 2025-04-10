@@ -5,6 +5,7 @@ import BarChart from "../../components/barchart-component/barchart-component";
 import { Post } from "../../types/post.type";
 import { Comment } from "../../types/comment.type";
 import { useTranslation } from "react-i18next";
+import "./chart-page.scss";
 
 interface ChartDataItem {
     name: string;
@@ -70,7 +71,6 @@ const ChartPage = () => {
 
     return (
         <div>
-            <h1>{t("quantity_of_posts_and_comments_per_user")}</h1>
             <BarChart data={chartData} />
         </div>
     );

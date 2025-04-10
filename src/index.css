@@ -1,68 +1,133 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    --breadcrumb-separator-color: #888;
+    --breadcrumb-link-color: #007bff;
+    --breadcrumb-link-hover-color: #0056b3;
+    --comment-border-color: #ddd;
+    --comment-background-color: #fff;
+    --comment-text-color: #444;
+    --comment-meta-color: #777;
+    --comment-button-approve-bg: #4caf50;
+    --comment-button-approve-color: #fff;
+    --comment-button-delete-bg: #f44336;
+    --comment-button-delete-color: #fff;
+    --form-background-color: #fff;
+    --form-input-border-color: #ccc;
+    --form-button-submit-bg: #4caf50;
+    --form-button-submit-color: #fff;
+    --form-button-cancel-bg: #f44336;
+    --form-button-cancel-color: #fff;
+    --form-error-color: red;
+    --comment-label-color: #333;
+    --comment-textarea-border-color: #ddd;
+    --comment-textarea-focus-border-color: #007bff;
+    --form-input-readonly-bg: #f0f0f0;
+    --form-input-readonly-color: #666;
+    --header-background-color: #007bff;
+    --header-text-color: white;
+    --header-link-color: white;
+    --header-button-bg: #0056b3;
+    --header-button-color: white;
+    --header-button-hover-bg: #004494;
+    --language-switcher-border-color: #ddd;
+    --language-switcher-bg-color: #fff;
+    --language-switcher-hover-bg: #f0f0f0;
+    --login-background-color: #f9f9f9;
+    --login-heading-color: #333;
+    --login-label-color: #666;
+    --login-input-border-color: #ddd;
+    --login-input-bg-color: #fff;
+    --login-input-text-color: #333;
+    --login-button-bg-color: #007bff;
+    --login-button-text-color: #fff;
+    --login-button-disabled-bg-color: #ccc;
+    --login-error-color: red;
+    --post-border-color: #ddd;
+    --post-background-color: #f9f9f9;
+    --post-heading-color: #333;
+    --post-text-color: #666;
+    --post-meta-color: #999;
+    --post-comments-border-color: #eee;
+    --post-link-color: #007bff;
+    --post-button-primary-bg-color: #007bff;
+    --post-button-primary-text-color: #fff;
+    --post-button-danger-bg-color: #dc3545;
+    --post-button-danger-text-color: #fff;
+    --page-background-color: #f8f9fa;
+    --page-heading-color: #333;
+    --page-loading-error-color: #007bff;
+    --pagination-button-border-color: #007bff;
+    --pagination-button-bg-color: #007bff;
+    --pagination-button-text-color: #fff;
+    --pagination-button-disabled-bg-color: #ccc;
+    --pagination-button-disabled-text-color: #666;
+    --pagination-button-hover-bg-color: #0056b3;
+    --pagination-button-hover-text-color: #fff;
+    --pagination-text-color: #333;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+[data-theme="dark"] {
+    --breadcrumb-separator-color: #bbb;
+    --breadcrumb-link-color: #80bfff;
+    --breadcrumb-link-hover-color: #3399ff;
+    --comment-border-color: #555;
+    --comment-background-color: #333;
+    --comment-text-color: #ddd;
+    --comment-meta-color: #aaa;
+    --comment-button-approve-bg: #66bb6a;
+    --comment-button-approve-color: #fff;
+    --comment-button-delete-bg: #e57373;
+    --comment-button-delete-color: #fff;
+    --form-background-color: #444;
+    --form-input-border-color: #777;
+    --form-button-submit-bg: #66bb6a;
+    --form-button-submit-color: #fff;
+    --form-button-cancel-bg: #e57373;
+    --form-button-cancel-color: #fff;
+    --form-error-color: #ff6666;
+    --comment-label-color: #ccc;
+    --comment-textarea-border-color: #777;
+    --comment-textarea-focus-border-color: #80bfff;
+    --form-input-readonly-bg: #555;
+    --form-input-readonly-color: #ccc;
+    --header-background-color: #333;
+    --header-text-color: #fff;
+    --header-link-color: #80bfff;
+    --header-button-bg: #555;
+    --header-button-color: #fff;
+    --header-button-hover-bg: #444;
+    --language-switcher-border-color: #555;
+    --language-switcher-bg-color: #333;
+    --language-switcher-hover-bg: #444;
+    --login-background-color: #333;
+    --login-heading-color: #fff;
+    --login-label-color: #aaa;
+    --login-input-border-color: #555;
+    --login-input-bg-color: #444;
+    --login-input-text-color: #fff;
+    --login-button-bg-color: #555;
+    --login-button-text-color: #fff;
+    --login-button-disabled-bg-color: #777;
+    --login-error-color: #ff6666;
+    --post-border-color: #555;
+    --post-background-color: #333;
+    --post-heading-color: #fff;
+    --post-text-color: #aaa;
+    --post-meta-color: #777;
+    --post-comments-border-color: #555;
+    --post-link-color: #80bfff;
+    --post-button-primary-bg-color: #555;
+    --post-button-primary-text-color: #fff;
+    --post-button-danger-bg-color: #e57373;
+    --post-button-danger-text-color: #fff;
+    --page-background-color: #222;
+    --page-heading-color: #fff;
+    --page-loading-error-color: #80bfff;
+    --pagination-button-border-color: #80bfff;
+    --pagination-button-bg-color: #555;
+    --pagination-button-text-color: #fff;
+    --pagination-button-disabled-bg-color: #777;
+    --pagination-button-disabled-text-color: #999;
+    --pagination-button-hover-bg-color: #444;
+    --pagination-button-hover-text-color: #fff;
+    --pagination-text-color: #ddd;
 }
