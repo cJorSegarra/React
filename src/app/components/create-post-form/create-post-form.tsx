@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { NewPost } from "../../types/post.type";
 import "./create-post-form.scss";
+import { useTranslation } from "react-i18next";
 
 interface Props {
     onSave: (post: NewPost) => void;
@@ -10,10 +11,11 @@ interface Props {
 }
 
 const CreatePostForm = ({ onSave, onCancel }: Props) => {
+    const { t } = useTranslation();
     const [title, setTitle] = useState("");
     const [body, setBody] = useState("");
     const [error, setError] = useState("");
-    const EMPTY_ERROR = "Title and Body cannot be empty";
+    const EMPTY_ERROR = t("empty_error");
 
     const userId = useSelector((state: RootState) => state.auth.id);
 
@@ -35,7 +37,7 @@ const CreatePostForm = ({ onSave, onCancel }: Props) => {
         <div className="create-post-form">
             <form onSubmit={handleSubmit}>
                 <label>
-                    Title:
+                    {t("title")}:
                     <input
                         type="text"
                         value={title}
@@ -43,16 +45,16 @@ const CreatePostForm = ({ onSave, onCancel }: Props) => {
                     />
                 </label>
                 <label>
-                    Body:
+                    {t("body")}:
                     <textarea
                         value={body}
                         onChange={(e) => setBody(e.target.value)}
                     />
                 </label>
                 {error && <div className="error">{error}</div>}
-                <button type="submit">Save</button>
+                <button type="submit">{t("save")}</button>
                 <button type="button" onClick={onCancel}>
-                    Cancel
+                    {t("cancel")}
                 </button>
             </form>
         </div>

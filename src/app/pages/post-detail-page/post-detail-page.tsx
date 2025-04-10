@@ -12,9 +12,11 @@ import { RootState } from "../../store/store";
 import CommentItem from "../../components/comment-item/comment-item";
 import EditCommentForm from "../../components/edit-comment-form/edit-comment-form";
 import CreateCommentForm from "../../components/create-comment-form/create-comment-form";
+import { useTranslation } from "react-i18next";
 import "./post-detail-page.scss";
 
 const PostDetailPage = () => {
+    const { t } = useTranslation();
     const { postId } = useParams<{ postId: string }>();
     const navigate = useNavigate();
 
@@ -41,7 +43,7 @@ const PostDetailPage = () => {
     };
 
     const handleDeleteComment = async (commentId: number) => {
-        if (window.confirm("Are you sure you want to delete this comment?")) {
+        if (window.confirm(t("confirm_delete_comment"))) {
             await deleteComment(commentId);
             refetch();
         }
@@ -60,27 +62,31 @@ const PostDetailPage = () => {
     };
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return <div>{t("loading")}</div>;
     }
 
     if (error) {
-        return <div>Error loading post</div>;
+        return <div>{t("error_loading_post")}</div>;
     }
 
     if (!post) {
-        return <div>Post not found</div>;
+        return <div>{t("post_not_found")}</div>;
     }
 
     return (
         <div className="post-detail">
             <button className="back-button" onClick={() => navigate(-1)}>
-                ← Back
+                ← {t("back")}
             </button>
             <h1>{post.title}</h1>
             <p>{post.body}</p>
             <div className="post-meta">
-                <span>User ID: {post.userId}</span>
-                <span>Post ID: {post.id}</span>
+                <span>
+                    {t("user_id")}: {post.userId}
+                </span>
+                <span>
+                    {t("post_id")}: {post.id}
+                </span>
             </div>
 
             {currentUserId ? (
@@ -89,11 +95,11 @@ const PostDetailPage = () => {
                         className="add-comment-button"
                         onClick={() => setIsAddingComment(true)}
                     >
-                        Comment
+                        {t("comment_action")}
                     </button>
                 )
             ) : (
-                <p>Please log in to comment.</p>
+                <p>{t("please_log_in_to_comment")}</p>
             )}
 
             {isAddingComment && currentUserId && (
@@ -116,7 +122,7 @@ const PostDetailPage = () => {
                         />
                     ))
                 ) : (
-                    <p>No comments available</p>
+                    <p>{t("no_comments_available")}</p>
                 )}
             </div>
 

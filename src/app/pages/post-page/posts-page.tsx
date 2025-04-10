@@ -13,9 +13,11 @@ import SearchFilter from "../../components/search-filter-component/search-filter
 import Pagination from "../../components/pagination-component/pagination-component";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
+import { useTranslation } from "react-i18next";
 import "./posts-page.scss";
 
 const PostsPage = () => {
+    const { t } = useTranslation();
     const { data: posts, error, isLoading, refetch } = useGetPostsQuery();
     const [createPost] = useCreatePostMutation();
     const [updatePost] = useUpdatePostMutation();
@@ -90,7 +92,7 @@ const PostsPage = () => {
     };
 
     const handleDelete = async (postId: number) => {
-        if (window.confirm("¿Estás seguro de que deseas borrar este post?")) {
+        if (window.confirm(t("confirm_delete_post"))) {
             await deletePost(postId);
 
             if (currentPosts.length === 1 && currentPage > 1) {
@@ -123,20 +125,24 @@ const PostsPage = () => {
 
     return (
         <div className="page-container">
-            <h1>Posts</h1>
+            <h1>{t("posts")}</h1>
             <div className="create-post-container">
                 {currentUserId ? (
                     <button onClick={() => setCreatingPost(true)}>
-                        Create Post
+                        {t("create_post")}
                     </button>
                 ) : (
-                    <p>Please log in to create a post.</p>
+                    <p>{t("please_log_in_to_create_a_post")}</p>
                 )}
             </div>
             <SearchFilter searchTerm={searchTerm} handleSearch={handleSearch} />
 
-            {isLoading && <div>Loading...</div>}
-            {error && <div>Error: {error.toString()}</div>}
+            {isLoading && <div>{t("loading")}</div>}
+            {error && (
+                <div>
+                    {t("error")}: {error.toString()}
+                </div>
+            )}
 
             {posts && (
                 <div>

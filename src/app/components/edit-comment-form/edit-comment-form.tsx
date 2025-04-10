@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Comment } from "../../types/comment.type";
 import "./edit-comment-form.scss";
+import { useTranslation } from "react-i18next";
 
 interface EditCommentFormProps {
     comment: Comment;
@@ -13,8 +14,9 @@ const EditCommentForm = ({
     onSave,
     onCancel,
 }: EditCommentFormProps) => {
+    const { t } = useTranslation();
     const [body, setBody] = useState(comment.body);
-    const EMPTY_ERROR = "Comment cannot be empty";
+    const EMPTY_ERROR = t("empty_comment_error");
     const [error, setError] = useState("");
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -30,22 +32,22 @@ const EditCommentForm = ({
         <div className="edit-comment-form">
             <form onSubmit={handleSubmit}>
                 <label>
-                    Comment:
+                    {t("comment")}:
                     <textarea
                         value={body}
                         onChange={(e) => setBody(e.target.value)}
                     />
                 </label>
                 <div>
-                    <strong>User ID:</strong> {comment.userId}
+                    <strong>{t("user_id")}:</strong> {comment.userId}
                 </div>
                 <div>
-                    <strong>Post ID:</strong> {comment.postId}
+                    <strong>{t("post_id")}:</strong> {comment.postId}
                 </div>
                 {error && <div className="error">{error}</div>}
-                <button type="submit">Save</button>
+                <button type="submit">{t("save")}</button>
                 <button type="button" onClick={onCancel}>
-                    Cancel
+                    {t("cancel")}
                 </button>
             </form>
         </div>

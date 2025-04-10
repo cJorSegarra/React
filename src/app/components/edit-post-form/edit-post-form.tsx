@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Post } from "../../types/post.type";
 import "./edit-post-form.scss";
+import { useTranslation } from "react-i18next";
 
 interface Props {
     post: Post;
@@ -9,10 +10,11 @@ interface Props {
 }
 
 const EditPostForm = ({ post, onSave, onCancel }: Props) => {
+    const { t } = useTranslation();
     const [title, setTitle] = useState(post.title);
     const [body, setBody] = useState(post.body);
     const [error, setError] = useState("");
-    const EMPTY_ERROR = "Title and Body cannot be empty";
+    const EMPTY_ERROR = t("empty_error");
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -27,7 +29,7 @@ const EditPostForm = ({ post, onSave, onCancel }: Props) => {
         <div className="edit-post-form">
             <form onSubmit={handleSubmit}>
                 <label>
-                    Title:
+                    {t("title")}:
                     <input
                         type="text"
                         value={title}
@@ -35,24 +37,24 @@ const EditPostForm = ({ post, onSave, onCancel }: Props) => {
                     />
                 </label>
                 <label>
-                    Body:
+                    {t("body")}:
                     <textarea
                         value={body}
                         onChange={(e) => setBody(e.target.value)}
                     />
                 </label>
                 <label>
-                    User ID:
+                    {t("user_id")}:
                     <input type="text" value={post.userId} readOnly />
                 </label>
                 <label>
-                    Post ID:
+                    {t("post_id")}:
                     <input type="text" value={post.id} readOnly />
                 </label>
                 {error && <div className="error">{error}</div>}
-                <button type="submit">Save</button>
+                <button type="submit">{t("save")}</button>
                 <button type="button" onClick={onCancel}>
-                    Cancel
+                    {t("cancel")}
                 </button>
             </form>
         </div>

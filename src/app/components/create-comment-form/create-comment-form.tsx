@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { NewComment } from "../../types/comment.type";
 import "./create-comment-form.scss";
+import { useTranslation } from "react-i18next";
 
 interface CreateCommentFormProps {
     postId: number;
@@ -15,9 +16,10 @@ const CreateCommentForm = ({
     onSave,
     onCancel,
 }: CreateCommentFormProps) => {
+    const { t } = useTranslation();
     const [body, setBody] = useState("");
     const [error, setError] = useState("");
-    const EMPTY_ERROR = "Comment cannot be empty";
+    const EMPTY_ERROR = t("empty_comment_error");
 
     const userId = useSelector((state: RootState) => state.auth.id);
 
@@ -39,20 +41,20 @@ const CreateCommentForm = ({
         <div className="create-comment-form">
             <form onSubmit={handleSubmit}>
                 <label>
-                    Comment:
+                    {t("comment")}:
                     <textarea
                         value={body}
                         onChange={(e) => setBody(e.target.value)}
                     />
                 </label>
                 <label>
-                    Post ID:
+                    {t("post_id")}:
                     <input type="number" value={postId} readOnly disabled />
                 </label>
                 {error && <div className="error">{error}</div>}
-                <button type="submit">Save</button>
+                <button type="submit">{t("save")}</button>
                 <button type="button" onClick={onCancel}>
-                    Cancel
+                    {t("cancel")}
                 </button>
             </form>
         </div>
