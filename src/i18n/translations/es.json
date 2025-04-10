@@ -37,5 +37,7 @@
     "empty_error": "El título y el cuerpo no pueden estar vacíos",
     "empty_comment_error": "El comentario no puede estar vacío",
     "comment_by_user_id": "Comentario por ID de Usuario",
-    "welcome": "Bienvenido"
+    "welcome": "Bienvenido",
+    "language_value_es": "ES",
+    "language_value_en": "EN"
 }

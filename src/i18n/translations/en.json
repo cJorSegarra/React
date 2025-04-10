@@ -37,5 +37,7 @@
     "empty_error": "Title and Body cannot be empty",
     "empty_comment_error": "Comment cannot be empty",
     "comment_by_user_id": "Comment by User ID",
-    "welcome": "Welcome"
+    "welcome": "Welcome",
+    "language_value_es": "ES",
+    "language_value_en": "EN"
 }
