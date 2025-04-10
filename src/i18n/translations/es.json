@@ -42,5 +42,7 @@
     "charts": "Gráficos",
     "quantity_of_posts_and_comments_per_user": "Cantidad de Publicaciones y Comentarios por Usuario",
     "quantity": "Cantidad",
-    "error_loading_data": "Error al cargar los datos. Verifica la conexión o la API."
+    "error_loading_data": "Error al cargar los datos. Verifica la conexión o la API.",
+    "light_mode": "Modo claro",
+    "dark_mode": "Modo oscuro"
 }

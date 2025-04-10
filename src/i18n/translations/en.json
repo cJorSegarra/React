@@ -42,5 +42,7 @@
     "charts": "Charts",
     "quantity_of_posts_and_comments_per_user": "Quantity of Posts and Comments per User",
     "quantity": "Quantity",
-    "error_loading_data": "Error loading data. Please check your connection or the API."
+    "error_loading_data": "Error loading data. Please check your connection or the API.",
+    "light_mode": "Light mode",
+    "dark_mode": "Dark mode"
 }
