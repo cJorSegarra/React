@@ -12,8 +12,8 @@ const LanguageSwitcherDropdown = () => {
     return (
         <div className="language-switcher">
             <select onChange={changeLanguage} defaultValue={i18n.language}>
-                <option value="en">{t("language_value_en")}</option>
-                <option value="es">{t("language_value_es")}</option>
+                <option value="en">{t("language_en")}</option>
+                <option value="es">{t("language_es")}</option>
             </select>
         </div>
     );

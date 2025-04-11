@@ -39,6 +39,7 @@ const CreatePostForm = ({ onSave, onCancel }: Props) => {
                 <label>
                     {t("title")}:
                     <input
+                        data-cy-test="title"
                         type="text"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
@@ -47,13 +48,20 @@ const CreatePostForm = ({ onSave, onCancel }: Props) => {
                 <label>
                     {t("body")}:
                     <textarea
+                        data-cy-test="body"
                         value={body}
                         onChange={(e) => setBody(e.target.value)}
                     />
                 </label>
                 {error && <div className="error">{error}</div>}
-                <button type="submit">{t("save")}</button>
-                <button type="button" onClick={onCancel}>
+                <button type="submit" data-cy-test="save-post">
+                    {t("save")}
+                </button>
+                <button
+                    type="button"
+                    data-cy-test="cancel-post"
+                    onClick={onCancel}
+                >
                     {t("cancel")}
                 </button>
             </form>

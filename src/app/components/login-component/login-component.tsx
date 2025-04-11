@@ -31,6 +31,7 @@ const Login = () => {
                 <div>
                     <label>{t("name")}:</label>
                     <input
+                        data-cy-test="username"
                         type="text"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
@@ -40,6 +41,7 @@ const Login = () => {
                 <div>
                     <label>{t("password")}:</label>
                     <input
+                        data-cy-test="password"
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
