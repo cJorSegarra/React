@@ -128,7 +128,10 @@ const PostsPage = () => {
             <h1>{t("posts")}</h1>
             <div className="create-post-container">
                 {currentUserId ? (
-                    <button onClick={() => setCreatingPost(true)}>
+                    <button
+                        data-cy-test="create-post-button"
+                        onClick={() => setCreatingPost(true)}
+                    >
                         {t("create_post")}
                     </button>
                 ) : (

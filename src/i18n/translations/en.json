@@ -44,5 +44,7 @@
     "quantity": "Quantity",
     "error_loading_data": "Error loading data. Please check your connection or the API.",
     "light_mode": "Light mode",
-    "dark_mode": "Dark mode"
+    "dark_mode": "Dark mode",
+    "language_es": "es",
+    "language_en": "en"
 }

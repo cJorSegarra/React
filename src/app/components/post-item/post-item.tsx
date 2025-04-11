@@ -14,7 +14,7 @@ const PostItem = ({ post, currentUserId, onEdit, onDelete }: Props) => {
     const { t } = useTranslation();
 
     return (
-        <div className="post-item">
+        <div className="post-item" data-post-id={post.id}>
             <Link to={`/posts/${post.id}`}>
                 <h3>{post.title}</h3>
             </Link>
@@ -29,8 +29,16 @@ const PostItem = ({ post, currentUserId, onEdit, onDelete }: Props) => {
             </div>
             {currentUserId === post.userId && (
                 <>
-                    <button onClick={() => onEdit(post)}>{t("edit")}</button>
-                    <button onClick={() => onDelete(post.id)}>
+                    <button
+                        data-cy-test={`edit-button-${post.id}`}
+                        onClick={() => onEdit(post)}
+                    >
+                        {t("edit")}
+                    </button>
+                    <button
+                        onClick={() => onDelete(post.id)}
+                        data-cy-test={`delete-button-${post.id}`}
+                    >
                         {t("delete")}
                     </button>
                 </>

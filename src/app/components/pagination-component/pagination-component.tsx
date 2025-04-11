@@ -13,6 +13,7 @@ const Pagination = ({ paginate, currentPage, totalPages }: PaginationProps) => {
     return (
         <div className="pagination">
             <button
+                data-cy-test="back-button"
                 onClick={() => paginate(currentPage - 1)}
                 disabled={currentPage === 1}
             >
@@ -22,6 +23,7 @@ const Pagination = ({ paginate, currentPage, totalPages }: PaginationProps) => {
                 {t("page")} {currentPage} {t("of")} {totalPages}
             </span>
             <button
+                data-cy-test="next-button"
                 onClick={() => paginate(currentPage + 1)}
                 disabled={currentPage === totalPages}
             >

@@ -31,6 +31,7 @@ const EditPostForm = ({ post, onSave, onCancel }: Props) => {
                 <label>
                     {t("title")}:
                     <input
+                        data-cy-test="edit-title"
                         type="text"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
@@ -39,6 +40,7 @@ const EditPostForm = ({ post, onSave, onCancel }: Props) => {
                 <label>
                     {t("body")}:
                     <textarea
+                        data-cy-test="edit-body"
                         value={body}
                         onChange={(e) => setBody(e.target.value)}
                     />
@@ -52,8 +54,14 @@ const EditPostForm = ({ post, onSave, onCancel }: Props) => {
                     <input type="text" value={post.id} readOnly />
                 </label>
                 {error && <div className="error">{error}</div>}
-                <button type="submit">{t("save")}</button>
-                <button type="button" onClick={onCancel}>
+                <button type="submit" data-cy-test="edit-save-button">
+                    {t("save")}
+                </button>
+                <button
+                    type="button"
+                    data-cy-test="edit-cancel-button"
+                    onClick={onCancel}
+                >
                     {t("cancel")}
                 </button>
             </form>

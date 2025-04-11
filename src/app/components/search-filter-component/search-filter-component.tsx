@@ -11,6 +11,7 @@ const SearchFilter = ({ searchTerm, handleSearch }: SearchFilterProps) => {
 
     return (
         <input
+            data-cy-test="search-input"
             type="text"
             placeholder={t("search_by_title")}
             value={searchTerm}
